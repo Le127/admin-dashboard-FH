@@ -2,7 +2,6 @@ import 'package:admin_dashboard/router/admin_handlers.dart';
 import 'package:admin_dashboard/router/no_page_found_handlers.dart';
 import 'package:fluro/fluro.dart';
 
-//Configuracion básica de las rutas
 class Flurorouter {
   static final FluroRouter router = FluroRouter();
 
@@ -16,6 +15,7 @@ class Flurorouter {
 // Dashboard
   static String dashboardRoute = '/auth/dashboard';
 
+//Configuracion básica de las rutas
   static void configureRoutes() {
 // Auth Routes
     router.define(rootRoute, handler: AdminHandlers.login);

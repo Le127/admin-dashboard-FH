@@ -21,9 +21,9 @@ class MyApp extends StatelessWidget {
       //Genera las rutas con las configuraciones cargadas en el main
       onGenerateRoute: (routeSettings) =>
           Flurorouter.router.generator(routeSettings),
-      //El child es la Vista que necesitamos mostrar
+      //El child es la Vista que necesitamos mostrar, dependiendo de la url en la que se encuentre
       builder: (_, child) {
-        return const AuthLayout();
+        return AuthLayout(child: child!);
       },
     );
   }
