@@ -15,17 +15,19 @@ class AuthLayout extends StatelessWidget {
 
     return Scaffold(
       //ListView o sus hijos necesita un tamaño fijo para permitir hacer scroll
-      body: ListView(
-        physics: const ClampingScrollPhysics(),
-        children: [
-//Si el width es mayor a 1000 muestra Desktop, caso contrario Mobile
-          (size.width > 1000)
-              ? _DesktopBody(child: child)
-              : _MobileBody(child: child),
+      body: Scrollbar(
+        child: ListView(
+          physics: const ClampingScrollPhysics(),
+          children: [
+            //Si el width es mayor a 1000 muestra Desktop, caso contrario Mobile
+            (size.width > 1000)
+                ? _DesktopBody(child: child)
+                : _MobileBody(child: child),
 
-          //Diseño LinksBar
-          const LinksBar(),
-        ],
+            //Diseño LinksBar
+            const LinksBar(),
+          ],
+        ),
       ),
     );
   }
