@@ -11,14 +11,17 @@ class AuthLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       //ListView o sus hijos necesita un tamaño fijo para permitir hacer scroll
       body: ListView(
         physics: const ClampingScrollPhysics(),
         children: [
-          //Diseño Desktop
-          _DesktopBody(child: child),
-          //Diseño Mobile
+//Si el width es mayor a 1000 muestra Desktop, caso contrario Mobile
+          (size.width > 1000)
+              ? _DesktopBody(child: child)
+              : _MobileBody(child: child),
 
           //Diseño LinksBar
           const LinksBar(),
@@ -62,6 +65,37 @@ class _DesktopBody extends StatelessWidget {
               ],
             ),
             //child: La View correcta. ,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class _MobileBody extends StatelessWidget {
+  final Widget child;
+
+  const _MobileBody({Key? key, required this.child}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.black,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const SizedBox(height: 20),
+          const CustomTitle(),
+          //View
+          SizedBox(
+            width: double.infinity,
+            height: 420,
+            child: child,
+          ),
+          const SizedBox(
+            width: double.infinity,
+            height: 400,
+            child: BackgroundTwitter(),
           )
         ],
       ),

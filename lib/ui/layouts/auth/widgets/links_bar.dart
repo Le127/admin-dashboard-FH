@@ -13,13 +13,16 @@ class LinksBar extends StatelessWidget {
 
     return Container(
         color: Colors.black,
-        height: size.height * 0.10,
+        height: (size.width > 1000) ? size.height * 0.07 : null,
         child: Wrap(
           alignment: WrapAlignment.center,
-      spacing: 1,
-          children:  [
-            LinkText(text: 'About',onPressed: () => print('click about')),
-            LinkText(text: 'Help Center',onPressed: () => print('click, deberia redirigirnos a otra page')),
+          spacing: 1,
+          children: [
+            LinkText(text: 'About', onPressed: () => print('click about')),
+            LinkText(
+                text: 'Help Center',
+                onPressed: () =>
+                    print('click, deberia redirigirnos a otra page')),
             const LinkText(text: 'Terms of Service'),
             const LinkText(text: 'Privacy Policy'),
             const LinkText(text: 'Cookie Policy'),
