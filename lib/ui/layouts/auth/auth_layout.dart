@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'widgets/background_twitter.dart';
 import 'widgets/custom_title.dart';
+import 'widgets/links_bar.dart';
 
 class AuthLayout extends StatelessWidget {
   final Widget child;
@@ -13,18 +14,21 @@ class AuthLayout extends StatelessWidget {
     return Scaffold(
       //ListView o sus hijos necesita un tamaño fijo para permitir hacer scroll
       body: ListView(
+        physics: const ClampingScrollPhysics(),
         children: [
           //Diseño Desktop
-          _DesktopBody(child: child)
+          _DesktopBody(child: child),
           //Diseño Mobile
 
           //Diseño LinksBar
+          const LinksBar(),
         ],
       ),
     );
   }
 }
 
+//Diseño Desktop
 class _DesktopBody extends StatelessWidget {
   final Widget child;
 
@@ -37,17 +41,14 @@ class _DesktopBody extends StatelessWidget {
 
     return Container(
       width: size.width,
-      height: size.height,
+      height: size.height * 0.95,
       color: Colors.red,
       child: Row(
         children: [
-          //Imagen pajarito flexible
           //Container flexible dependiendo el tamaño de la pantalla
           const BackgroundTwitter(),
 
-          //View Container
-          //Cointainer de ancho fijo.
-
+          //View Container de ancho fijo.
           Container(
             width: 600,
             height: double.infinity,
