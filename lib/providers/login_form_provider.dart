@@ -11,7 +11,7 @@ class LoginFormProvider extends ChangeNotifier {
     if (formKey.currentState!.validate()) {
       print('Form valid... Login');
     } else {
-      print('Form not valid');
+      print('Form not valid'); 
     }
   }
 }
