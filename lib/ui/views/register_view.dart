@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import '../buttons/custom_outlined_button.dart';
 import '../inputs/custom_inputs.dart';
 
-class LoginView extends StatelessWidget {
-  const LoginView({Key? key}) : super(key: key);
+class RegisterView extends StatelessWidget {
+  const RegisterView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +20,19 @@ class LoginView extends StatelessWidget {
             child: Form(
               child: Column(
                 children: [
+                  TextFormField(
+                    // validator: (),
+
+                    //Usuarios
+                    style: const TextStyle(color: Colors.white),
+                    decoration: CustomInputs.loginInputDecoration(
+                        hint: 'Ingrese su usuario',
+                        label: 'Usuario',
+                        icon: Icons.supervised_user_circle_sharp),
+                  ),
+
+                  const SizedBox(height: 20),
+
                   //Email
                   TextFormField(
                     // validator: (),
@@ -29,6 +42,7 @@ class LoginView extends StatelessWidget {
                         label: 'Email',
                         icon: Icons.email_outlined),
                   ),
+
                   const SizedBox(height: 20),
 
                   //Password
@@ -44,19 +58,19 @@ class LoginView extends StatelessWidget {
 
                   const SizedBox(height: 20),
 
-                  //Button Login
+                  //Button Register
                   CustomOutlinedButton(
                     onPressed: () {},
-                    text: 'Ingresar',
+                    text: 'Crear cuenta',
                   ),
 
                   const SizedBox(height: 20),
 
                   //Link
                   LinkText(
-                    text: 'Nueva Cuenta',
+                    text: 'Ir al login',
                     onPressed: () {
-                      Navigator.pushNamed(context, Flurorouter.registerRoute);
+                      Navigator.pushNamed(context, Flurorouter.loginRoute);
                     },
                   )
                 ],
@@ -67,4 +81,6 @@ class LoginView extends StatelessWidget {
       ),
     );
   }
+
+
 }

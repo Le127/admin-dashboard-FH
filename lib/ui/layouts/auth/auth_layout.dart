@@ -51,7 +51,7 @@ class _DesktopBody extends StatelessWidget {
       child: Row(
         children: [
           //Container flexible dependiendo el tamaño de la pantalla
-          const BackgroundTwitter(),
+          const Expanded(child: BackgroundTwitter()),
 
           //View Container de ancho fijo.
           Container(
