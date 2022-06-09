@@ -1,3 +1,5 @@
+import 'package:admin_dashboard/providers/auth_provider.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,9 +15,11 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+
     return ChangeNotifierProvider(
-      create: (_) => LoginFormProvider(),
-      //Primero construye lo que este antes del builder. Ahora si tenemos accedo al context para llamar al LoginFormProvider
+      create: (_) => LoginFormProvider(authProvider),
+      //Primero se construye lo que este antes del builder. Ahora si tenemos accedo al context para llamar al LoginFormProvider
       child: Builder(builder: (context) {
         final loginFormProvider =
             Provider.of<LoginFormProvider>(context, listen: false);
@@ -28,12 +32,19 @@ class LoginView extends StatelessWidget {
               constraints: const BoxConstraints(maxWidth: 370),
               //Formulario
               child: Form(
+                autovalidateMode: AutovalidateMode.always,
                 key: loginFormProvider.formKey,
                 child: Column(
                   children: [
                     //Email
                     TextFormField(
-                      //   validator: (){},
+                      validator: (value) {
+                        if (!EmailValidator.validate(value ?? 'xx')) {
+                          return 'Email no válido';
+                        }
+                        return null;
+                      },
+                      onChanged: (value) => loginFormProvider.email = value,
                       style: const TextStyle(color: Colors.white),
                       decoration: CustomInputs.loginInputDecoration(
                           hint: 'Ingrese su correo',
@@ -45,6 +56,7 @@ class LoginView extends StatelessWidget {
 
                     //Password
                     TextFormField(
+                      onChanged: (value) => loginFormProvider.password = value,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Ingrese su contraseña';
