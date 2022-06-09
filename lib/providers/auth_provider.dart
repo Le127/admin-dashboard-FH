@@ -22,10 +22,11 @@ class AuthProvider extends ChangeNotifier {
     // ignore: avoid_print
     print('almacenarJWT : $_token');
 
-    //Navegar al dashboard que aun no esta creado
+    authStatus = AuthStatus.authenticated;
 
     notifyListeners(); //para que se redibuje en los lugares necesarios
   }
+
   // Devuelve true si existe un token
   Future<bool> isAuthenticated() async {
     final token = LocalStorage.prefs.getString('token');
@@ -38,8 +39,8 @@ class AuthProvider extends ChangeNotifier {
 
     //todo: Ir al backend y comprobar si el JWT es valido
     await Future.delayed(const Duration(milliseconds: 1000));
-          authStatus = AuthStatus.authenticated;
-      notifyListeners();
+    authStatus = AuthStatus.authenticated;
+    notifyListeners();
     return true;
   }
 }
