@@ -13,12 +13,19 @@ class DashBoardLayout extends StatefulWidget {
 class _DashBoardLayoutState extends State<DashBoardLayout> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-        body: Center(
-      child: Text(
-        'DashBoard',
-        style: TextStyle(fontSize: 50),
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'DashBoard',
+              style: TextStyle(fontSize: 50),
+            ),
+            Expanded(child: widget.child)
+          ],
+        ),
       ),
-    ));
+    );
   }
 }

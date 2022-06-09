@@ -1,4 +1,6 @@
+import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/services/local_storage.dart';
+import 'package:admin_dashboard/services/navigation_service.dart';
 import 'package:flutter/widgets.dart';
 
 //Este provider tiene la informacion de que usuario esta conectado, el token de acceso, etc
@@ -25,6 +27,9 @@ class AuthProvider extends ChangeNotifier {
     authStatus = AuthStatus.authenticated;
 
     notifyListeners(); //para que se redibuje en los lugares necesarios
+
+    //Cambia el url
+    NavigationService.repalceTo(Flurorouter.dashboardRoute);
   }
 
   // Devuelve true si existe un token
