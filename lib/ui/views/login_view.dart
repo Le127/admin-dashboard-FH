@@ -18,7 +18,7 @@ class LoginView extends StatelessWidget {
     final authProvider = Provider.of<AuthProvider>(context);
 
     return ChangeNotifierProvider(
-      create: (_) => LoginFormProvider(authProvider),
+      create: (_) => LoginFormProvider(),
       //Primero se construye lo que este antes del builder. Ahora si tenemos accedo al context para llamar al LoginFormProvider
       child: Builder(builder: (context) {
         final loginFormProvider =
@@ -78,7 +78,13 @@ class LoginView extends StatelessWidget {
 
                     //Button Login
                     CustomOutlinedButton(
-                      onPressed: () => loginFormProvider.validateForm(),
+                      onPressed: () {
+                        final isValid = loginFormProvider.validateForm();
+                        if (isValid) {
+                          authProvider.login(loginFormProvider.email,
+                              loginFormProvider.password);
+                        }
+                      },
                       text: 'Ingresar',
                     ),
 
