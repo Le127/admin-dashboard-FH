@@ -9,7 +9,6 @@ import 'package:admin_dashboard/ui/layouts/auth/auth_layout.dart';
 import 'package:admin_dashboard/ui/layouts/dashboard/dashboard_layout.dart';
 import 'ui/layouts/splash/splash_layout.dart';
 
-
 Future<void> main() async {
   //Configuracion LocalStorage
   await LocalStorage.configurePrefs();
@@ -50,7 +49,7 @@ class MyApp extends StatelessWidget {
       //Genera las rutas con las configuraciones cargadas en el main
       onGenerateRoute: (routeSettings) =>
           Flurorouter.router.generator(routeSettings),
-      //El child es la Vista que necesitamos mostrar, dependiendo de la url en la que se encuentre
+      // El child es la View que se va a mostrar, basada en el url que tenga
       builder: (_, child) {
         final authProvider = Provider.of<AuthProvider>(context);
 

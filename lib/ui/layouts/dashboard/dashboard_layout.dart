@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/ui/shared/sidebar.dart';
 import 'package:flutter/material.dart';
 
 class DashBoardLayout extends StatefulWidget {
@@ -14,7 +15,20 @@ class _DashBoardLayoutState extends State<DashBoardLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      backgroundColor: const Color(0xffEDF1F2),
+      body: Row(
+        children: [
+          //Barra lateral
+          const Sidebar(),
+
+          //Contenedor del View. La View es la pantalla que va a mostrar basada en el url que tenga
+          Expanded(child: widget.child),
+        ],
+      ),
+    );
+  }
+}
+/* Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -22,10 +36,13 @@ class _DashBoardLayoutState extends State<DashBoardLayout> {
               'DashBoard',
               style: TextStyle(fontSize: 50),
             ),
-            Expanded(child: widget.child)
+            //View
+            Expanded(
+              child: Container(
+                color: Colors.white,
+                child: widget.child,
+              ),
+            )
           ],
         ),
-      ),
-    );
-  }
-}
+      ), */
