@@ -1,6 +1,10 @@
 import 'package:admin_dashboard/ui/shared/sidebar.dart';
 import 'package:flutter/material.dart';
 
+import '../../shared/navbar.dart';
+
+//Dashboard Principal que muestra la barra lateral y una view.
+
 class DashBoardLayout extends StatefulWidget {
   //El view que va  a mostrar
   final Widget child;
@@ -18,11 +22,22 @@ class _DashBoardLayoutState extends State<DashBoardLayout> {
       backgroundColor: const Color(0xffEDF1F2),
       body: Row(
         children: [
-          //Barra lateral
+          //Barra lateral con 200px reservados
           const Sidebar(),
 
-          //Contenedor del View. La View es la pantalla que va a mostrar basada en el url que tenga
-          Expanded(child: widget.child),
+          //Esta Column contiene el NavBar y la View que se va a mostrar basada en el url que tenga.
+          //Va a utilizar el total de los px restantes
+          Expanded(
+            child: Column(
+              children: [
+                //NavBar
+                const NavBar(),
+
+                //View.
+                Expanded(child: widget.child),
+              ],
+            ),
+          )
         ],
       ),
     );
