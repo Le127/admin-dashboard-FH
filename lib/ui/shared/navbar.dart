@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'widgets/navbar_avatar.dart';
+import 'widgets/notification_indicator.dart';
 import 'widgets/search_text.dart';
 
 class NavBar extends StatelessWidget {
@@ -14,14 +16,28 @@ class NavBar extends StatelessWidget {
       child: Row(
         children: [
           // todo: Icono del Menu dependiendo del responsive
+
+          //MenuIcon
           IconButton(icon: const Icon(Icons.menu_outlined), onPressed: () {}),
           const SizedBox(width: 5),
 
-          //Search Bar. Limita el crecimiento del widget
+          //SearchBox. Limita el crecimiento del widget
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 250),
             child: const SearchText(),
-          )
+          ),
+          //Spacer
+          const Spacer(),
+
+          //Notificacion
+          const NotificationIndicator(),
+
+          const SizedBox(width: 10),
+
+          //Avatar
+          const NavbarAvatar(),
+
+          const SizedBox(width: 10),
         ],
       ),
     );

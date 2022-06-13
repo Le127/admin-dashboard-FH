@@ -15,6 +15,7 @@ class SearchText extends StatelessWidget {
     );
   }
 
+// Borde y color
   BoxDecoration buildBoxDecoration() => BoxDecoration(
       borderRadius: BorderRadius.circular(10),
       color: Colors.grey.withOpacity(0.1));
