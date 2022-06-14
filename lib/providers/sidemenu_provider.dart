@@ -24,7 +24,7 @@ class SideMenuProvider {
 
   //Close
   static void closeMenu() {
-    isOpen = true;
+    isOpen = false; //ESTABA EN TRUE
     menuController.reverse(); //Caso opuesto a Open
   }
 

@@ -61,6 +61,18 @@ class _DashBoardLayoutState extends State<DashBoardLayout>
               builder: (context, _) => Stack(
                 children: [
                   //Todo background sideBar animation
+                  if (SideMenuProvider.isOpen)
+                    Opacity(
+                      opacity: SideMenuProvider.opacity.value,
+                      child: GestureDetector(
+                        onTap: () => SideMenuProvider.closeMenu(),
+                        child: Container(
+                          width: size.width,
+                          height: size.height,
+                          color: Colors.black26,
+                        ),
+                      ),
+                    ),
 
                   Transform.translate(
                     offset: Offset(SideMenuProvider.movement.value, 0),
