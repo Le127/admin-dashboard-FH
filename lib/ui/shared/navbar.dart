@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../providers/sidemenu_provider.dart';
 import 'widgets/navbar_avatar.dart';
 import 'widgets/notification_indicator.dart';
 import 'widgets/search_text.dart';
@@ -9,23 +10,28 @@ class NavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Container(
       width: double.infinity,
       height: 50,
       decoration: buildBoxDecoration(),
       child: Row(
         children: [
-          // todo: Icono del Menu dependiendo del responsive
+          //MenuIcon  responsive
+          if (size.width <= 700)
+            IconButton(
+                icon: const Icon(Icons.menu_outlined),
+                onPressed: () => SideMenuProvider.openMenu()),
 
-          //MenuIcon
-          IconButton(icon: const Icon(Icons.menu_outlined), onPressed: () {}),
           const SizedBox(width: 5),
 
           //SearchBox. Limita el crecimiento del widget
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 250),
-            child: const SearchText(),
-          ),
+          if (size.width > 390)
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 250),
+              child: const SearchText(),
+            ),
           //Spacer
           const Spacer(),
 

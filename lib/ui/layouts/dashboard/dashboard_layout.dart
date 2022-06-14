@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/providers/sidemenu_provider.dart';
 import 'package:admin_dashboard/ui/shared/sidebar.dart';
 import 'package:flutter/material.dart';
 
@@ -15,29 +16,59 @@ class DashBoardLayout extends StatefulWidget {
   State<DashBoardLayout> createState() => _DashBoardLayoutState();
 }
 
-class _DashBoardLayoutState extends State<DashBoardLayout> {
+class _DashBoardLayoutState extends State<DashBoardLayout>
+    with SingleTickerProviderStateMixin {
+  @override
+  void initState() {
+    //Inicializa el controlador, ya que en el provider no lo hace.
+    SideMenuProvider.menuController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 300));
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: const Color(0xffEDF1F2),
-      body: Row(
+      body: Stack(
         children: [
-          //Barra lateral con 200px reservados
-          const Sidebar(),
+          Row(
+            children: [
+              //Barra lateral con 200px reservados
+              if (size.width >= 700) const Sidebar(),
 
-          //Esta Column contiene el NavBar y la View que se va a mostrar basada en el url que tenga.
-          //Va a utilizar el total de los px restantes
-          Expanded(
-            child: Column(
-              children: [
-                //NavBar
-                const NavBar(),
+              //Esta Column contiene el NavBar y la View que se va a mostrar basada en el url que tenga.
+              //Va a utilizar el total de los px restantes
+              Expanded(
+                child: Column(
+                  children: [
+                    //NavBar
+                    const NavBar(),
 
-                //View.
-                Expanded(child: widget.child),
-              ],
+                    //View.
+                    Expanded(child: widget.child),
+                  ],
+                ),
+              )
+            ],
+          ),
+          if (size.width < 700)
+            AnimatedBuilder(
+              animation: SideMenuProvider.menuController,
+              builder: (context, _) => Stack(
+                children: [
+                  //Todo background sideBar animation
+
+                  Transform.translate(
+                    offset: Offset(SideMenuProvider.movement.value, 0),
+                    child: const Sidebar(),
+                  )
+                ],
+              ),
             ),
-          )
         ],
       ),
     );
