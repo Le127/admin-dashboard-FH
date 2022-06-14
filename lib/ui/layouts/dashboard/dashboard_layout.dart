@@ -49,7 +49,12 @@ class _DashBoardLayoutState extends State<DashBoardLayout>
                     const NavBar(),
 
                     //View.
-                    Expanded(child: widget.child),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                        child: widget.child,
+                      ),
+                    ),
                   ],
                 ),
               )
