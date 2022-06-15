@@ -15,7 +15,7 @@ class CafeApi {
     };
   }
 
-// Peticiones http
+// Peticion http .GET
 
   static Future httpGet(String path) async {
     try {
