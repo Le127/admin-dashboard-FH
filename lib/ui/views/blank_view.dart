@@ -17,7 +17,7 @@ class BlankView extends StatelessWidget {
         const SizedBox(height: 10),
 
         //Tarjeta personalizada para mostrar contenido
-        const WhiteCard(title: 'Sales Statistics', child: Text('Hola Mundo'))
+        const WhiteCard(title: 'Blank View', child: Text('Hola Mundo!!'))
       ],
     );
   }

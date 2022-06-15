@@ -1,7 +1,11 @@
-// ignore_for_file: avoid_print
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:admin_dashboard/router/router.dart';
 
 import 'package:admin_dashboard/providers/sidemenu_provider.dart';
-import 'package:flutter/material.dart';
+
+import 'package:admin_dashboard/services/navigation_service.dart';
 
 import 'widgets/custom_menu_item.dart';
 import 'widgets/logo.dart';
@@ -12,6 +16,13 @@ class Sidebar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sideMenuProvider = Provider.of<SideMenuProvider>(context);
+
+    void _navigateTo(String routeName) {
+      NavigationService.navigateTo(routeName);
+      SideMenuProvider.closeMenu();
+    }
+
     return Container(
       width: 200,
       height: double.infinity,
@@ -25,12 +36,14 @@ class Sidebar extends StatelessWidget {
             const SizedBox(height: 50),
             //Separator
             const TextSeparator(text: 'main'),
-      
+
             //Items
             CustomMenuItem(
+                isActive:
+                    sideMenuProvider.currentPage == Flurorouter.dashboardRoute,
                 text: 'Dashboard',
                 icon: Icons.compass_calibration_outlined,
-                onPressed: () => SideMenuProvider.closeMenu()),
+                onPressed: () => _navigateTo(Flurorouter.dashboardRoute)),
             CustomMenuItem(
                 text: 'Orders',
                 icon: Icons.shopping_cart_outlined,
@@ -55,14 +68,18 @@ class Sidebar extends StatelessWidget {
                 text: 'Customers',
                 icon: Icons.people_alt_outlined,
                 onPressed: () {}),
-      
+
             const SizedBox(height: 30),
             //Separator
             const TextSeparator(text: 'UI Elements'),
-      
+
             //Items
             CustomMenuItem(
-                text: 'Icons', icon: Icons.list_alt_outlined, onPressed: () {}),
+                isActive:
+                    sideMenuProvider.currentPage == Flurorouter.iconsRoute,
+                text: 'Icons',
+                icon: Icons.list_alt_outlined,
+                onPressed: () => _navigateTo(Flurorouter.iconsRoute)),
             CustomMenuItem(
                 text: 'Marketing',
                 icon: Icons.mark_email_read_outlined,
@@ -72,7 +89,15 @@ class Sidebar extends StatelessWidget {
                 icon: Icons.note_add_outlined,
                 onPressed: () {}),
             CustomMenuItem(
-                text: 'Black', icon: Icons.post_add_outlined, onPressed: () {}),
+                isActive:
+                    sideMenuProvider.currentPage == Flurorouter.blankRoute,
+                text: 'Blank',
+                icon: Icons.post_add_outlined,
+                onPressed: () => _navigateTo(Flurorouter.blankRoute)),
+
+            const SizedBox(height: 50),
+            //Separator
+            const TextSeparator(text: 'Exit'),
             CustomMenuItem(
                 text: 'Logout',
                 icon: Icons.exit_to_app_outlined,
