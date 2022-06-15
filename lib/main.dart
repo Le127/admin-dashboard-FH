@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/api/cafe_api.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +18,8 @@ import 'package:admin_dashboard/router/router.dart';
 Future<void> main() async {
   //Configuracion LocalStorage
   await LocalStorage.configurePrefs();
+  //Configuracion Dio
+  CafeApi.configureDio();
   //Configuracion de rutas
   Flurorouter.configureRoutes();
   //Ejecuta la App
