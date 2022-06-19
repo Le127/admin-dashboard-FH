@@ -1,3 +1,5 @@
+import 'package:admin_dashboard/api/cafe_api.dart';
+import 'package:admin_dashboard/models/http/auth_response.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
@@ -9,13 +11,13 @@ enum AuthStatus { checking, authenticated, notAuthenticated }
 
 class AuthProvider extends ChangeNotifier {
   String? _token;
-
   AuthStatus authStatus = AuthStatus.checking;
+  Usuario? user;
 
   AuthProvider() {
     isAuthenticated();
   }
-
+//LOGIN
   login(String email, String password) {
     //Peticion http
 
@@ -30,6 +32,36 @@ class AuthProvider extends ChangeNotifier {
 
     //Cambia el url
     NavigationService.repalceTo(Flurorouter.dashboardRoute);
+  }
+
+//REGISTER
+  register(String email, String password, String name) {
+    final data = {
+      "nombre": name,
+      "correo": email,
+      "password": password,
+    };
+
+    //POST
+    CafeApi.httpPost('/usuarios', data).then(
+      (json) {
+        print(json);
+
+        final authResponse = AuthResponse.fromMap(json);
+        user = authResponse.usuario;
+        authStatus = AuthStatus.authenticated;
+
+        LocalStorage.prefs.setString('token',authResponse.token);
+        //Cambia el url y navega al dashboard
+        NavigationService.repalceTo(Flurorouter.dashboardRoute);
+        // ignore: avoid_print
+        print('almacenarJWT : $_token');
+        notifyListeners(); //para que se redibuje en los lugares necesarios
+      },
+    ).catchError((e) {
+      print('error en : $e');
+      //Todo: Mostrar notificación de error
+    });
   }
 
   // Devuelve true si existe un token
