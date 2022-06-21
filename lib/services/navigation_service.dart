@@ -8,7 +8,7 @@ class NavigationService {
     return navigatorKey.currentState!.pushNamed(routeName);
   }
 //Navega y NO guarda en el historial
-  static repalceTo(String routeName) {
+  static replaceTo(String routeName) {
     return navigatorKey.currentState!.pushReplacementNamed(routeName);
   }
 }

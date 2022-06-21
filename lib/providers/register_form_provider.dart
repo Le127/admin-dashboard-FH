@@ -11,7 +11,7 @@ class RegisterFormProvider extends ChangeNotifier {
 
   //Valida las entradas del formulario con la informacion del Form que ya tiene asociada en el formKey.
   // Devuelve true si es valido, caso contrario false
-  validateForm() {
+  bool validateForm() {
     if (formKey.currentState!.validate()) {
       print('Form valid... Login');
       print(email);
