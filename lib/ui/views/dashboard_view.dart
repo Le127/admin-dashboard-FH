@@ -13,19 +13,22 @@ class DashboardView extends StatelessWidget {
     final activeUser = Provider.of<AuthProvider>(context).user!;
 
 
-    return ListView(
-      physics: const ClampingScrollPhysics(),
-      children: [
-        Text('DashboardView', style: CustomLabels.h1),
+    return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: ListView(
+        physics: const ClampingScrollPhysics(),
+        children: [
+          Text('DashboardView', style: CustomLabels.h1),
 
-        const SizedBox(height: 10),
+          const SizedBox(height: 10),
 
-        //Tarjeta personalizada para mostrar contenido
-         WhiteCard(
-          title: activeUser.nombre,
-          child: Text(activeUser.correo),
-        ),
-      ],
+          //Tarjeta personalizada para mostrar contenido
+           WhiteCard(
+            title: activeUser.nombre,
+            child: Text(activeUser.correo),
+          ),
+        ],
+      ),
     );
   }
 }

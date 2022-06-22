@@ -4,8 +4,9 @@ import '../models/category.dart';
 
 class CategoriesDTS extends DataTableSource {
   final List<Categoria> categorias;
+  final BuildContext context;
 
-  CategoriesDTS(this.categorias);
+  CategoriesDTS(this.categorias, this.context);
 
   @override
   DataRow getRow(int index) {
@@ -26,7 +27,25 @@ class CategoriesDTS extends DataTableSource {
                 icon: const Icon(Icons.edit_outlined)),
             IconButton(
                 onPressed: () {
-                  print('Borrando: $categoria');
+                  final dialog = AlertDialog(
+                    title: const Text('¿Está seguro de borrar?'),
+                    content:
+                        Text('¿Borrar devinitivamente ${categoria.nombre}?'),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('No')),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Si, borrar'))
+                    ],
+                  );
+
+                  showDialog(context: context, builder: (_) => dialog);
                 },
                 icon: Icon(
                   Icons.delete_outlined,

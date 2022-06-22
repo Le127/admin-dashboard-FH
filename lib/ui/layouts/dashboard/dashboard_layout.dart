@@ -50,10 +50,7 @@ class _DashBoardLayoutState extends State<DashBoardLayout>
 
                     //View.
                     Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                        child: widget.child,
-                      ),
+                      child: widget.child,
                     ),
                   ],
                 ),

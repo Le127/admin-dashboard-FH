@@ -28,31 +28,34 @@ class _CategoriesViewState extends State<CategoriesView> {
   Widget build(BuildContext context) {
     final categorias = Provider.of<CategoriesProvider>(context).categorias;
 
-    return ListView(
-      physics: const ClampingScrollPhysics(),
-      children: [
-        Text('Categorias', style: CustomLabels.h1),
-        const SizedBox(height: 10),
-        PaginatedDataTable(
-          columns: const [
-            DataColumn(label: Text('ID')),
-            DataColumn(label: Text('Categoría')),
-            DataColumn(label: Text('Creado por')),
-            DataColumn(label: Text('Acciones')),
-          ],
-          source: CategoriesDTS(categorias),
-          header: const Text('Categorías disponibles', maxLines: 2),
-          onRowsPerPageChanged: (value) {
-            _rowsPerPage = value ?? 10;
-            setState(() {});
-          },
-          rowsPerPage: _rowsPerPage,
-          actions: [
-            CustomIconButton(
-                onPressed: () {}, text: 'Crear', icon: Icons.add_outlined)
-          ],
-        )
-      ],
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: ListView(
+        physics: const ClampingScrollPhysics(),
+        children: [
+          Text('Categorias', style: CustomLabels.h1),
+          const SizedBox(height: 10),
+          PaginatedDataTable(
+            columns: const [
+              DataColumn(label: Text('ID')),
+              DataColumn(label: Text('Categoría')),
+              DataColumn(label: Text('Creado por')),
+              DataColumn(label: Text('Acciones')),
+            ],
+            source: CategoriesDTS(categorias, context),
+            header: const Text('Categorías disponibles', maxLines: 2),
+            onRowsPerPageChanged: (value) {
+              _rowsPerPage = value ?? 10;
+              setState(() {});
+            },
+            rowsPerPage: _rowsPerPage,
+            actions: [
+              CustomIconButton(
+                  onPressed: () {}, text: 'Crear', icon: Icons.add_outlined)
+            ],
+          )
+        ],
+      ),
     );
   }
 }
