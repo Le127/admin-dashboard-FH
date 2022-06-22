@@ -13,6 +13,7 @@ import 'package:flutter/widgets.dart';
 enum AuthStatus { checking, authenticated, notAuthenticated }
 
 class AuthProvider extends ChangeNotifier {
+  // ignore: unused_field
   String? _token;
   AuthStatus authStatus = AuthStatus.checking;
   Usuario? user;
