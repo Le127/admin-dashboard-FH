@@ -7,8 +7,9 @@ import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:admin_dashboard/services/notifications_service.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
 
-import 'package:admin_dashboard/providers/sidemenu_provider.dart';
 import 'package:admin_dashboard/providers/auth_provider.dart';
+import 'package:admin_dashboard/providers/categories_provider.dart';
+import 'package:admin_dashboard/providers/sidemenu_provider.dart';
 
 import 'package:admin_dashboard/ui/layouts/auth/auth_layout.dart';
 import 'package:admin_dashboard/ui/layouts/dashboard/dashboard_layout.dart';
@@ -35,7 +36,8 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider(), lazy: false),
-        ChangeNotifierProvider(create: (_) => SideMenuProvider(), lazy: false)
+        ChangeNotifierProvider(create: (_) => SideMenuProvider(), lazy: false),
+        ChangeNotifierProvider(create: (_) => CategoriesProvider())
       ],
       child: const MyApp(),
     );
