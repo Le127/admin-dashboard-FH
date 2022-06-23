@@ -48,10 +48,9 @@ class CafeApi {
     }
   }
 
-
   //PUT               ///categorias/{id}
   static Future httpPut(String path, Map<String, dynamic> data) async {
-    //Convierte la data como body 
+    //Convierte la data como body
     final formData = FormData.fromMap(data);
 
     try {
@@ -65,5 +64,19 @@ class CafeApi {
     }
   }
 
+  //DELETE
+  static Future httpDelete(String path, Map<String, dynamic> data) async {
+    //Convierte la data como body
+    final formData = FormData.fromMap(data);
 
+    try {
+      //respuesta
+      final resp = await _dio.delete(path, data: formData);
+      return resp.data;
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+      throw ("Error en el DELETE");
+    }
+  }
 }

@@ -27,11 +27,9 @@ class CategoriesProvider extends ChangeNotifier {
       final newCategory = Categoria.fromMap(json);
 
       categorias.add(newCategory);
-
       notifyListeners();
     } catch (e) {
-      print(e);
-      print('Error al crear categoría');
+      throw 'Error al crear categoria';
     }
   }
 
@@ -54,8 +52,22 @@ class CategoriesProvider extends ChangeNotifier {
 
       notifyListeners();
     } catch (e) {
+      throw 'Error al actualizar categoria';
+    }
+  }
+
+//Delete Category
+  Future deleteCategory(String id) async {
+    try {
+      await CafeApi.httpDelete('/categorias/$id', {});
+
+      //Elimina la categoria solo si categoria.id es igual al id que esta recibiendo
+      categorias.removeWhere((categoria) => categoria.id == id);
+
+      notifyListeners();
+    } catch (e) {
       print(e);
-      print('Error al actualizar categoría');
+      print('Error al eliminar categoría');
     }
   }
 }
