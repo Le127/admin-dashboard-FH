@@ -1,4 +1,5 @@
 import 'package:admin_dashboard/providers/categories_provider.dart';
+import 'package:admin_dashboard/ui/modals/category_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -46,12 +47,20 @@ class _CategoriesViewState extends State<CategoriesView> {
             header: const Text('Categorías disponibles', maxLines: 2),
             onRowsPerPageChanged: (value) {
               _rowsPerPage = value ?? 10;
-              setState(() {});
             },
             rowsPerPage: _rowsPerPage,
             actions: [
               CustomIconButton(
-                  onPressed: () {}, text: 'Crear', icon: Icons.add_outlined)
+                  onPressed: () {
+                    setState(() {
+                      showModalBottomSheet(
+                          context: context,
+                          backgroundColor: Colors.transparent,
+                          builder: (_) => const CategoryModal());
+                    });
+                  },
+                  text: 'Crear',
+                  icon: Icons.add_outlined)
             ],
           )
         ],
