@@ -47,4 +47,23 @@ class CafeApi {
       throw ("Error en el POST");
     }
   }
+
+
+  //PUT               ///categorias/{id}
+  static Future httpPut(String path, Map<String, dynamic> data) async {
+    //Convierte la data como body 
+    final formData = FormData.fromMap(data);
+
+    try {
+      //respuesta
+      final resp = await _dio.put(path, data: formData);
+      return resp.data;
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+      throw ("Error en el PUT");
+    }
+  }
+
+
 }

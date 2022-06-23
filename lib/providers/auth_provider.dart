@@ -60,7 +60,7 @@ class AuthProvider extends ChangeNotifier {
       "password": password,
     };
 
-    //POST
+    //Post
     CafeApi.httpPost('/usuarios', data).then(
       (json) {
         print(json);

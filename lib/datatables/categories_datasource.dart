@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../models/category.dart';
+import '../ui/modals/category_modal.dart';
 
 class CategoriesDTS extends DataTableSource {
   final List<Categoria> categorias;
   final BuildContext context;
 
-  CategoriesDTS(this.categorias, this.context);
+   CategoriesDTS(this.categorias, this.context);
 
   @override
   DataRow getRow(int index) {
@@ -22,7 +23,12 @@ class CategoriesDTS extends DataTableSource {
           children: [
             IconButton(
                 onPressed: () {
-                  print('Editando: $categoria');
+                  showModalBottomSheet(
+                      context: context,
+                      backgroundColor: Colors.transparent,
+                      builder: (_) => CategoryModal(
+                            categoria: categoria,
+                          ));
                 },
                 icon: const Icon(Icons.edit_outlined)),
             IconButton(

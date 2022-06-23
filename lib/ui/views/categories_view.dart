@@ -52,12 +52,10 @@ class _CategoriesViewState extends State<CategoriesView> {
             actions: [
               CustomIconButton(
                   onPressed: () {
-                    setState(() {
-                      showModalBottomSheet(
-                          context: context,
-                          backgroundColor: Colors.transparent,
-                          builder: (_) => const CategoryModal());
-                    });
+                    showModalBottomSheet(
+                        context: context,
+                        backgroundColor: Colors.transparent,
+                        builder: (_) => const CategoryModal());
                   },
                   text: 'Crear',
                   icon: Icons.add_outlined)
