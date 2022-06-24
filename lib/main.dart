@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:admin_dashboard/api/cafe_api.dart';
+import 'api/cafe_api.dart';
 
-import 'package:admin_dashboard/services/local_storage.dart';
-import 'package:admin_dashboard/services/notifications_service.dart';
-import 'package:admin_dashboard/services/navigation_service.dart';
+import 'services/local_storage.dart';
+import 'services/notifications_service.dart';
+import 'services/navigation_service.dart';
 
-import 'package:admin_dashboard/providers/auth_provider.dart';
-import 'package:admin_dashboard/providers/categories_provider.dart';
-import 'package:admin_dashboard/providers/sidemenu_provider.dart';
+import 'providers/auth_provider.dart';
+import 'providers/categories_provider.dart';
+import 'providers/sidemenu_provider.dart';
+import 'providers/users_provider.dart';
 
-import 'package:admin_dashboard/ui/layouts/auth/auth_layout.dart';
-import 'package:admin_dashboard/ui/layouts/dashboard/dashboard_layout.dart';
+import 'ui/layouts/auth/auth_layout.dart';
+import 'ui/layouts/dashboard/dashboard_layout.dart';
 import 'ui/layouts/splash/splash_layout.dart';
 
-import 'package:admin_dashboard/router/router.dart';
+import 'router/router.dart';
 
 Future<void> main() async {
   //Configuracion LocalStorage
@@ -37,7 +38,8 @@ class AppState extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider(), lazy: false),
         ChangeNotifierProvider(create: (_) => SideMenuProvider(), lazy: false),
-        ChangeNotifierProvider(create: (_) => CategoriesProvider())
+        ChangeNotifierProvider(create: (_) => CategoriesProvider()),
+        ChangeNotifierProvider(create: (_) => UsersProvider())
       ],
       child: const MyApp(),
     );

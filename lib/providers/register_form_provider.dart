@@ -15,7 +15,6 @@ class RegisterFormProvider extends ChangeNotifier {
     if (formKey.currentState!.validate()) {
       print('Form valid... Login');
       print(email);
-      print(password);
       print(name);
       return true;
     } else {

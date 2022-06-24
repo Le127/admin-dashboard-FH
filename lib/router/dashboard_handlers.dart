@@ -1,15 +1,17 @@
-import 'package:admin_dashboard/ui/views/categories_view.dart';
-import 'package:fluro/fluro.dart';
 import 'package:provider/provider.dart';
+import 'package:fluro/fluro.dart';
+
+import 'router.dart';
 
 import '../providers/auth_provider.dart';
 import '../providers/sidemenu_provider.dart';
 
-import 'router.dart';
+import 'package:admin_dashboard/ui/views/categories_view.dart';
 
 import '../ui/views/blank_view.dart';
 import '../ui/views/dashboard_view.dart';
 import '../ui/views/icons_view.dart';
+import '../ui/views/users_view.dart';
 import '../ui/views/login_view.dart';
 
 class DashboardHandlers {
@@ -61,6 +63,26 @@ class DashboardHandlers {
       return const LoginView();
     }
   });
+
+
+//Users Handler
+  static Handler users = Handler(handlerFunc: (context, parameters) {
+    final authProvider = Provider.of<AuthProvider>(context!);
+
+    //Setea CurrentPage
+    Provider.of<SideMenuProvider>(context, listen: false)
+        .setCurrentPageUrl(Flurorouter.usersRoute);
+
+    //Si esta autenticado devuelve UsersView
+    if (authProvider.authStatus == AuthStatus.authenticated) {
+      return  const UsersView();
+    } else {
+      return const LoginView();
+    }
+  });
+
+
+
 
 //Blank Handler
   static Handler blank = Handler(handlerFunc: (context, parameters) {

@@ -20,7 +20,7 @@ class Sidebar extends StatelessWidget {
     final sideMenuProvider = Provider.of<SideMenuProvider>(context);
 
     void _navigateTo(String routeName) {
-      NavigationService.navigateTo(routeName);
+      NavigationService.replaceTo(routeName);
       SideMenuProvider.closeMenu();
     }
 
@@ -68,9 +68,11 @@ class Sidebar extends StatelessWidget {
                 icon: Icons.attach_money_outlined,
                 onPressed: () {}),
             CustomMenuItem(
-                text: 'Customers',
+                text: 'Users',
+                isActive:
+                    sideMenuProvider.currentPage == Flurorouter.usersRoute,
                 icon: Icons.people_alt_outlined,
-                onPressed: () {}),
+                onPressed: () => _navigateTo(Flurorouter.usersRoute)),
 
             const SizedBox(height: 30),
             //Separator

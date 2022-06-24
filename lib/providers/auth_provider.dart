@@ -8,6 +8,8 @@ import 'package:admin_dashboard/services/navigation_service.dart';
 import 'package:admin_dashboard/services/notifications_service.dart';
 import 'package:flutter/widgets.dart';
 
+import '../models/usuario.dart';
+
 //Este provider tiene la informacion de que usuario esta conectado, el token de acceso, etc
 
 enum AuthStatus { checking, authenticated, notAuthenticated }
