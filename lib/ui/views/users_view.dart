@@ -20,21 +20,33 @@ class UsersView extends StatelessWidget {
         children: [
           Text('Users View', style: CustomLabels.h1),
           const SizedBox(height: 10),
-          PaginatedDataTable(columns: [
-            const DataColumn(label: Text('Avatar')),
-            DataColumn(
-                label: const Text('Nombre'),
-                onSort: (columnIndex, _) {
-                  usersProvider.sort<String>((user) => user.nombre);
-                }),
-            DataColumn(
-                label: const Text('Email'),
-                onSort: (columnIndex, _) {
-                  usersProvider.sort<String>((user) => user.correo);
-                }),
-            const DataColumn(label: Text('UID')),
-            const DataColumn(label: Text('Acciones'))
-          ], source: usersDataSource)
+
+          //Table
+          PaginatedDataTable(
+            sortAscending: usersProvider.ascending,
+            sortColumnIndex: usersProvider.sortColumnIndex,
+            columns: [
+              const DataColumn(label: Text('Avatar')),
+              DataColumn(
+                  label: const Text('Nombre'),
+                  onSort: (columnIndex, _) {
+                    usersProvider.sortColumnIndex = columnIndex;
+                    usersProvider.sort<String>((user) => user.nombre);
+                  }),
+              DataColumn(
+                  label: const Text('Email'),
+                  onSort: (columnIndex, _) {
+                    usersProvider.sortColumnIndex = columnIndex;
+                    usersProvider.sort<String>((user) => user.correo);
+                  }),
+              const DataColumn(label: Text('UID')),
+              const DataColumn(label: Text('Acciones'))
+            ],
+            source: usersDataSource,
+            onPageChanged: (page) {
+              print('page $page');
+            },
+          )
         ],
       ),
     );
