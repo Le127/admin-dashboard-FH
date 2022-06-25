@@ -1,6 +1,7 @@
 import 'package:provider/provider.dart';
 import 'package:fluro/fluro.dart';
 
+import '../ui/views/user_view.dart';
 import 'router.dart';
 
 import '../providers/auth_provider.dart';
@@ -64,7 +65,6 @@ class DashboardHandlers {
     }
   });
 
-
 //Users Handler
   static Handler users = Handler(handlerFunc: (context, parameters) {
     final authProvider = Provider.of<AuthProvider>(context!);
@@ -75,14 +75,29 @@ class DashboardHandlers {
 
     //Si esta autenticado devuelve UsersView
     if (authProvider.authStatus == AuthStatus.authenticated) {
-      return  const UsersView();
+      return const UsersView();
     } else {
       return const LoginView();
     }
   });
 
-
-
+//User Handler
+  static Handler user = Handler(handlerFunc: (context, params) {
+    final authProvider = Provider.of<AuthProvider>(context!);
+    //Setea CurrentPage
+    Provider.of<SideMenuProvider>(context, listen: false)
+        .setCurrentPageUrl(Flurorouter.userRoute);
+    //Si esta autenticado  y tiene UID devuelve UserView
+    if (authProvider.authStatus == AuthStatus.authenticated) {
+      if (params['uid']?.first != null) {
+        return UserView(uid: params['uid']!.first);
+      } else {
+        return const UsersView();
+      }
+    } else {
+      return const LoginView();
+    }
+  });
 
 //Blank Handler
   static Handler blank = Handler(handlerFunc: (context, parameters) {

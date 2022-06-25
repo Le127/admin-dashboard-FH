@@ -20,6 +20,7 @@ class Flurorouter {
   static String blankRoute = '/dashboard/blank';
 // Users
   static String usersRoute = '/dashboard/users';
+  static String userRoute = '/dashboard/users/:uid';
 
 //Configuracion básica de las rutas
   static void configureRoutes() {
@@ -45,6 +46,8 @@ class Flurorouter {
 //Users
     router.define(usersRoute,
         handler: DashboardHandlers.users, transitionType: TransitionType.none);
+           router.define(userRoute,
+        handler: DashboardHandlers.user, transitionType: TransitionType.none);
 
 // 404
     router.notFoundHandler = NoPageFoundHandlers.noPageFoundView;

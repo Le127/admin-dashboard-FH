@@ -14,7 +14,7 @@ class UsersProvider extends ChangeNotifier {
     getPaginatedUsers();
   }
 
-  getPaginatedUsers() async {
+  Future<void> getPaginatedUsers() async {
     final resp = await CafeApi.httpGet('/usuarios?limite=100&desde=0');
     final usersResp = UsersResponse.fromMap(resp);
     //Carga la respuesta en la lista de usuarios
@@ -38,5 +38,17 @@ class UsersProvider extends ChangeNotifier {
 
     ascending = !ascending;
     notifyListeners();
+  }
+
+  Future<Usuario> getUserById(String uid) async {
+    try {
+      final resp = await CafeApi.httpGet('/usuarios/$uid');
+      final user = Usuario.fromMap(resp);
+      return user;
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+      rethrow;
+    }
   }
 }
