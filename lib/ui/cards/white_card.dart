@@ -34,10 +34,9 @@ class WhiteCard extends StatelessWidget {
               ),
             ),
             const Divider(),
-
-            //Child
-            child
-          ]
+          ],
+          //Child
+          child
         ],
       ),
     );
