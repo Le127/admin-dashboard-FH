@@ -1,10 +1,12 @@
-import 'package:admin_dashboard/providers/users_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:admin_dashboard/ui/cards/white_card.dart';
 import 'package:admin_dashboard/ui/inputs/custom_inputs.dart';
-import 'package:flutter/material.dart';
-
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
-import 'package:provider/provider.dart';
+
+import '../../providers/user_form_provider.dart';
+import '../../providers/users_provider.dart';
 
 import '../../models/usuario.dart';
 
@@ -23,12 +25,18 @@ class _UserViewState extends State<UserView> {
   @override
   void initState() {
     final usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    final userFormProvider =
+        Provider.of<UserFormProvider>(context, listen: false);
 
     usersProvider.getUserById(widget.uid).then((userDB) {
+      //Asigna el usuario al Provider
+      userFormProvider.user = userDB;
+
       setState(() {
         user = userDB;
       });
     });
+
     super.initState();
   }
 
@@ -64,9 +72,7 @@ class _UserViewBody extends StatelessWidget {
         TableRow(children: [
           //AVATAR
           _AvatarContainer(),
-
           //Formulario Actualización
-
           const _UserViewForm()
         ])
       ],
@@ -82,6 +88,9 @@ class _UserViewForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userFormProvider = Provider.of<UserFormProvider>(context);
+    final user = userFormProvider.user!;
+
     return WhiteCard(
       title: 'Información general',
       child: Form(
@@ -91,6 +100,7 @@ class _UserViewForm extends StatelessWidget {
           children: [
             //Nombre
             TextFormField(
+              initialValue: user.nombre,
               decoration: CustomInputs.formInputDecoration(
                   hint: 'Nombre del usuario',
                   label: 'Nombre',
@@ -101,6 +111,7 @@ class _UserViewForm extends StatelessWidget {
 
             //Email
             TextFormField(
+              initialValue: user.correo,
               decoration: CustomInputs.formInputDecoration(
                   hint: 'Correo del usuario',
                   label: 'Correo',
@@ -108,19 +119,22 @@ class _UserViewForm extends StatelessWidget {
             ),
 
             const SizedBox(height: 20),
-
+            //BOTON ACTUALIZAR / 
             ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 108),
+              constraints: const BoxConstraints(maxWidth: 115),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+               //TODO: Actualizar Usuario
+                },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.indigo),
                   shadowColor: MaterialStateProperty.all(Colors.transparent),
                 ),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
                     Icon(Icons.save_outlined, size: 20),
-                    Text(' Guardar')
+                    Text('Actualizar')
                   ],
                 ),
               ),
