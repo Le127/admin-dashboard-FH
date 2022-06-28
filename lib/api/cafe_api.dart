@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:dio/dio.dart';
 
@@ -77,6 +79,24 @@ class CafeApi {
       // ignore: avoid_print
       print(e.response);
       throw ("Error en el DELETE");
+    }
+  }
+
+  //              ///categorias/{id}
+  static Future uploadFile(String path, Uint8List bytes) async {
+    //Convierte los bytes como body
+    final formData =
+        FormData.fromMap({'archivo': MultipartFile.fromBytes(bytes)});
+
+    try {
+      //respuesta
+      final resp = await _dio.put(path, data: formData);
+      return resp.data;
+      
+    } on DioError catch (e) {
+      // ignore: avoid_print
+      print(e);
+      throw ("Error en el PUT: $e");
     }
   }
 }

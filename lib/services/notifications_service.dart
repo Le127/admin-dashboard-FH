@@ -18,7 +18,6 @@ class NotificationsService {
     messengerKey.currentState!.showSnackBar(snackBar);
   }
 
-
 //SnackBar Correcto
   static showSnackbarOk(String message) {
     final snackBar = SnackBar(
@@ -30,5 +29,20 @@ class NotificationsService {
     );
     //Muestra snackbar
     messengerKey.currentState!.showSnackBar(snackBar);
+  }
+
+//Modal
+  static showBusyIndicator(BuildContext context) {
+    final AlertDialog dialog = AlertDialog(
+// ignore: sized_box_for_whitespace
+      content: Container(
+        width: 100,
+        height: 100,
+        child: const Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
+    );
+    showDialog(context: context, builder: (_) => dialog);
   }
 }

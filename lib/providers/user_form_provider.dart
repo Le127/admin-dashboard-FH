@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
+import 'dart:typed_data';
+
 import 'package:admin_dashboard/api/cafe_api.dart';
 import 'package:admin_dashboard/models/usuario.dart';
-import 'package:flutter/material.dart';
 
 class UserFormProvider extends ChangeNotifier {
   late GlobalKey<FormState> formKey;
@@ -55,6 +57,22 @@ class UserFormProvider extends ChangeNotifier {
       // ignore: avoid_print
       print('error en updateUser: $e');
       return false;
+    }
+  }
+
+//UploadImage
+  Future<Usuario> uploadImage(String path, Uint8List bytes) async {
+    try {
+      final resp = await CafeApi.uploadFile(path, bytes);
+
+      user = Usuario.fromMap(resp);
+
+      notifyListeners();
+
+      return user!;
+    } catch (e) {
+      print(e);
+      throw 'Error en UserFormProvider';
     }
   }
 }
