@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/services/navigation_service.dart';
 import 'package:admin_dashboard/services/notifications_service.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -30,16 +31,32 @@ class _UserViewState extends State<UserView> {
     final userFormProvider =
         Provider.of<UserFormProvider>(context, listen: false);
 
-    usersProvider.getUserById(widget.uid).then((userDB) {
-      //Asigna el usuario al Provider
-      userFormProvider.user = userDB;
-
-      setState(() {
-        user = userDB;
-      });
-    });
+    usersProvider.getUserById(widget.uid).then(
+      (userDB) {
+        if (userDB != null) {
+          //Asigna el usuario al Provider
+          userFormProvider.user = userDB;
+          //Inicializa nuevamente el Key. Lo limpia.
+          userFormProvider.formKey = GlobalKey<FormState>();
+          setState(() {
+            user = userDB;
+          });
+        } else {
+          NavigationService.replaceTo('/dashboard/users');
+        }
+      },
+    );
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    user = null;
+
+    Provider.of<UserFormProvider>(context, listen: false).user = null;
+
+    super.dispose();
   }
 
   @override
@@ -92,6 +109,7 @@ class _UserViewForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final userFormProvider = Provider.of<UserFormProvider>(context);
     final user = userFormProvider.user!;
+    final usersProvider = Provider.of<UsersProvider>(context, listen: false);
 
     return WhiteCard(
       title: 'Información general',
@@ -148,7 +166,7 @@ class _UserViewForm extends StatelessWidget {
                   final saved = await userFormProvider.updateUser();
                   if (saved) {
                     NotificationsService.showSnackbarOk('Usuario actualizado');
-                    Provider.of<UsersProvider>(context,listen: false).getPaginatedUsers();
+                    usersProvider.refreshUser(user);
                   } else {
                     NotificationsService.showSnackbarError(
                         'No se pudo guardar');

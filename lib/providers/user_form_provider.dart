@@ -3,7 +3,7 @@ import 'package:admin_dashboard/models/usuario.dart';
 import 'package:flutter/material.dart';
 
 class UserFormProvider extends ChangeNotifier {
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  late GlobalKey<FormState> formKey;
   Usuario? user;
 
   //Esta es una forma sencilla de actualizar el user, llamando a un notifyListener personalizado en el lugar que querramos.
@@ -47,10 +47,12 @@ class UserFormProvider extends ChangeNotifier {
 
     try {
       final resp = await CafeApi.httpPut('/usuarios/${user!.uid}', data);
+      // ignore: avoid_print
       print(resp);
 
       return true;
     } catch (e) {
+      // ignore: avoid_print
       print('error en updateUser: $e');
       return false;
     }
