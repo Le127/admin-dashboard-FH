@@ -1,3 +1,5 @@
+import 'package:admin_dashboard/services/notifications_service.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -94,7 +96,7 @@ class _UserViewForm extends StatelessWidget {
     return WhiteCard(
       title: 'Información general',
       child: Form(
-        //TODO: Key
+        key: userFormProvider.formKey,
         autovalidateMode: AutovalidateMode.always,
         child: Column(
           children: [
@@ -105,6 +107,16 @@ class _UserViewForm extends StatelessWidget {
                   hint: 'Nombre del usuario',
                   label: 'Nombre',
                   icon: Icons.supervised_user_circle_outlined),
+              onChanged: (value) {
+                userFormProvider.copyUserWith(nombre: value);
+              },
+              validator: (value) {
+                if (value == null || value.isEmpty) return 'Ingrese un nombre';
+                if (value.length < 2) {
+                  return 'El nombre debe tener dos letras como minimo';
+                }
+                return null;
+              },
             ),
 
             const SizedBox(height: 20),
@@ -116,15 +128,31 @@ class _UserViewForm extends StatelessWidget {
                   hint: 'Correo del usuario',
                   label: 'Correo',
                   icon: Icons.mark_email_read_outlined),
+              onChanged: (value) =>
+                  userFormProvider.copyUserWith(correo: value),
+              validator: (value) {
+                if (!EmailValidator.validate(value ?? 'xx')) {
+                  return 'Email no válido';
+                }
+                return null;
+              },
             ),
 
             const SizedBox(height: 20),
-            //BOTON ACTUALIZAR / 
+
+            //BOTON ACTUALIZAR
             ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 115),
+              constraints: const BoxConstraints(maxWidth: 115, maxHeight: 40),
               child: ElevatedButton(
-                onPressed: () {
-               //TODO: Actualizar Usuario
+                onPressed: () async {
+                  final saved = await userFormProvider.updateUser();
+                  if (saved) {
+                    NotificationsService.showSnackbarOk('Usuario actualizado');
+                    Provider.of<UsersProvider>(context,listen: false).getPaginatedUsers();
+                  } else {
+                    NotificationsService.showSnackbarError(
+                        'No se pudo guardar');
+                  }
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.indigo),
@@ -150,6 +178,9 @@ class _UserViewForm extends StatelessWidget {
 class _AvatarContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final userFormProvider = Provider.of<UserFormProvider>(context);
+    final user = userFormProvider.user!;
+
     return WhiteCard(
       child: SizedBox(
         width: double.infinity,
@@ -201,9 +232,9 @@ class _AvatarContainer extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            const Text(
-              'Nombre de usuario',
-              style: TextStyle(fontWeight: FontWeight.bold),
+            Text(
+              user.nombre,
+              style: const TextStyle(fontWeight: FontWeight.bold),
             )
           ],
         ),
