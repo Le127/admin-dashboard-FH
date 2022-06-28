@@ -13,7 +13,11 @@ class CategoriesProvider extends ChangeNotifier {
     final resp = await CafeApi.httpGet('/categorias');
     final categoriesResp = CategoriesResponse.fromMap(resp);
 
-    categorias = [...categorias, ...categoriesResp.categorias];
+
+    categorias = [...categoriesResp.categorias];
+
+    //categorias = [...categorias, ...categoriesResp.categorias];
+    
     print(categorias);
     notifyListeners();
   }

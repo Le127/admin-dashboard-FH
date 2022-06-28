@@ -25,6 +25,9 @@ class _CategoriesViewState extends State<CategoriesView> {
     super.initState();
   }
 
+
+
+
   @override
   Widget build(BuildContext context) {
     final categorias = Provider.of<CategoriesProvider>(context).categorias;
